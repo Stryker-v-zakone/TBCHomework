@@ -12,84 +12,112 @@
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans selection:bg-blue-500 selection:text-white">
 
     <!-- საიტის მთავარი ჰედერი და ნავიგაცია -->
-    <header class="bg-white/95 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50 shadow-sm transition-all">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="text-center sm:text-left">
-                <a href="index.html" class="text-xl font-bold tracking-tight text-slate-900 hover:text-blue-600 transition-colors flex items-center gap-2 justify-center sm:justify-start">
-                    <span class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-black text-sm shadow-sm">MS</span>
-                    მიხეილ საგრადიანი
-                </a>
-                <p class="text-xs text-slate-500 font-medium">სკოლის მოსწავლე &amp; დამწყები Front-End დეველოპერი</p>
+    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 shadow-sm transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                
+                <!-- ლოგო / ბრენდი -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="group flex items-center gap-2.5 text-slate-900 hover:text-blue-600 transition-colors">
+                        <span class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm shadow-sm group-hover:scale-105 transition-transform">MS</span>
+                        <div>
+                            <span class="block text-base sm:text-lg font-bold tracking-tight leading-tight">მიხეილ საგრადიანი</span>
+                            <span class="block text-[11px] text-slate-500 font-medium">სკოლის მოსწავლე &bull; Front-End</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- დესკტოპ ნავიგაცია (მალულია მობილურზე < md) -->
+                <nav aria-label="მთავარი ნავიგაცია" class="hidden md:flex items-center gap-1.5 lg:gap-2">
+                    <a href="index.html" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-all">მთავარი</a>
+                    <a href="about.html" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-all">ჩემ შესახებ</a>
+                    <a href="projects.html" class="px-3.5 py-2 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-sm transition-all" aria-current="page">პროექტები</a>
+                    <a href="contact.html" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-all">კონტაქტი</a>
+                </nav>
+
+                <!-- ბურგერ მენიუს ღილაკი (ჩანს მხოლოდ მობილურზე < md) -->
+                <div class="flex md:hidden">
+                    <button type="button" id="mobile-menu-btn" aria-controls="mobile-menu" aria-expanded="false" 
+                            class="p-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors border border-slate-200" 
+                            aria-label="მობილური მენიუს გახსნა">
+                        <!-- ბურგერ აიქონი (3 ხაზი) -->
+                        <svg id="menu-icon-open" class="w-6 h-6 block" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                        <!-- დახურვის აიქონი (X) -->
+                        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            
-            <!-- სემანტიკური ნავიგაცია -->
-            <nav aria-label="მთავარი ნავიგაცია">
-                <ul class="flex items-center flex-wrap justify-center gap-1.5 sm:gap-2">
-                    <li>
-                        <a href="index.html" class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-all">მთავარი</a>
-                    </li>
-                    <li>
-                        <a href="about.html" class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-all">ჩემ შესახებ</a>
-                    </li>
-                    <li>
-                        <a href="projects.html" class="px-3.5 py-1.5 rounded-lg text-sm font-semibold bg-blue-600 text-white shadow-sm transition-all" aria-current="page">პროექტები</a>
-                    </li>
-                    <li>
-                        <a href="contact.html" class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-all">კონტაქტი</a>
-                    </li>
-                </ul>
+
+            <!-- მობილური ჩამოსაშლელი მენიუ -->
+            <nav id="mobile-menu" aria-label="მობილური ნავიგაცია" class="hidden md:hidden border-t border-slate-200 py-3 space-y-1">
+                <a href="index.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors">
+                    მთავარი
+                </a>
+                <a href="about.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors">
+                    ჩემ შესახებ
+                </a>
+                <a href="projects.html" class="block px-4 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-sm" aria-current="page">
+                    პროექტები
+                </a>
+                <a href="contact.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors">
+                    კონტაქტი
+                </a>
             </nav>
         </div>
     </header>
 
     <!-- გვერდის ძირითადი შინაარსი -->
-    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full space-y-12">
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 lg:py-12 w-full space-y-8 sm:space-y-12">
 
         <!-- შესავალი სექცია -->
-        <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-3">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+        <section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-8 lg:p-10 shadow-sm space-y-3">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
                 <span>💻</span> პორტფოლიო
             </div>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
                 შესრულებული ნამუშევრების კატალოგი
             </h1>
-            <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-3xl">
+            <p class="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed max-w-3xl">
                 ყველა პროექტი შექმნილია სუფთა კოდის წესების, სემანტიკური მარკირებისა და თანამედროვე Tailwind CSS-ის გათვალისწინებით.
                 ქვემოთ შეგიძლიათ იხილოთ თითოეული პროექტის დეტალური აღწერა და ფუნქციონალი.
             </p>
         </section>
 
         <!-- პროექტების სია <article> თეგებით -->
-        <section id="portfolio-list" class="space-y-8">
-            <div class="border-b border-slate-200 pb-4">
-                <h2 class="text-2xl font-bold text-slate-900">პროექტების დეტალური სია</h2>
-                <p class="text-sm text-slate-500">ინდივიდუალური და სასწავლო პროექტები</p>
+        <section id="portfolio-list" class="space-y-6 sm:space-y-8">
+            <div class="border-b border-slate-200 pb-3 sm:pb-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">პროექტების დეტალური სია</h2>
+                <p class="text-xs sm:text-sm text-slate-500">ინდივიდუალური და სასწავლო პროექტები</p>
             </div>
 
             <!-- პროექტი 1 -->
             <article id="project-1" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
                     <div class="lg:col-span-5">
                         <figure class="h-full">
                             <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=700&auto=format&fit=crop&q=80" 
                                  alt="ონლაინ მაღაზიის ვიტრინის ილუსტრაცია" 
-                                 class="w-full h-64 lg:h-full object-cover">
-                            <figcaption class="p-3 bg-slate-100 text-slate-600 text-xs text-center border-t border-slate-200">
+                                 class="w-full h-52 sm:h-64 lg:h-full object-cover">
+                            <figcaption class="p-2.5 sm:p-3 bg-slate-100 text-slate-600 text-xs text-center border-t border-slate-200">
                                 ShopTBC — პროდუქციის კატალოგის და შეკვეთის ფორმის ინტერფეისი
                             </figcaption>
                         </figure>
                     </div>
 
-                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-4">
+                    <div class="lg:col-span-7 p-5 sm:p-8 flex flex-col justify-between space-y-4">
                         <header class="space-y-2">
                             <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
                                 <span class="px-2.5 py-0.5 rounded-full font-semibold bg-blue-100 text-blue-800">E-Commerce</span>
                                 <time datetime="2025-11-20" class="text-slate-500">20 ნოემბერი, 2025</time>
                             </div>
-                            <h3 class="text-2xl font-bold text-slate-900">1. ელექტრონული კომერციის პლატფორმა - ShopTBC</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-900">1. ელექტრონული კომერციის პლატფორმა - ShopTBC</h3>
                         </header>
 
-                        <p class="text-slate-600 text-sm leading-relaxed">
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
                             ონლაინ მაღაზია, სადაც მომხმარებელს შეუძლია პროდუქციის კატეგორიების მიხედვით დათვალიერება, ფილტრაცია,
                             დეტალური აღწერის ნახვა და შეკვეთის გაფორმება. გვერდზე რეალიზებულია სემანტიკური ფორმები და ვალიდაცია.
                         </p>
@@ -97,27 +125,27 @@
                         <div class="space-y-2">
                             <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">ძირითადი ფუნქციონალი:</h4>
                             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> სემანტიკური სტრუქტურა</li>
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> შეკვეთის სრული ფორმა</li>
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> ფასების &amp; მარაგის ცხრილი</li>
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> Tailwind CSS სტილები</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> სემანტიკური სტრუქტურა</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> შეკვეთის სრული ფორმა</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> ფასების &amp; მარაგის ცხრილი</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> Tailwind CSS სტილები</li>
                             </ul>
                         </div>
 
                         <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div class="space-y-1">
+                            <div class="space-y-1 w-full sm:w-auto">
                                 <div class="flex items-center justify-between text-xs text-slate-600">
                                     <span class="font-medium">სტატუსი: დასრულებული</span>
                                     <span class="font-bold text-emerald-600">100%</span>
                                 </div>
-                                <div class="w-48 bg-slate-200 rounded-full h-2 overflow-hidden">
+                                <div class="w-full sm:w-48 bg-slate-200 rounded-full h-2 overflow-hidden">
                                     <progress value="100" max="100" class="sr-only">100%</progress>
                                     <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%;"></div>
                                 </div>
                             </div>
 
                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
-                               class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900 text-white hover:bg-blue-600 transition-colors shadow-sm">
+                               class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold bg-slate-900 text-white hover:bg-blue-600 transition-colors shadow-sm text-center">
                                 <span>GitHub რეპოზიტორი</span> &rarr;
                             </a>
                         </div>
@@ -127,28 +155,28 @@
 
             <!-- პროექტი 2 -->
             <article id="project-2" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
                     <div class="lg:col-span-5">
                         <figure class="h-full">
                             <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=700&auto=format&fit=crop&q=80" 
                                  alt="ბლოგის სამუშაო მაგიდა ნოუთბუქით" 
-                                 class="w-full h-64 lg:h-full object-cover">
-                            <figcaption class="p-3 bg-slate-100 text-slate-600 text-xs text-center border-t border-slate-200">
+                                 class="w-full h-52 sm:h-64 lg:h-full object-cover">
+                            <figcaption class="p-2.5 sm:p-3 bg-slate-100 text-slate-600 text-xs text-center border-t border-slate-200">
                                 WebDev Insights — ტექნოლოგიური ბლოგ-პოსტების პლატფორმა
                             </figcaption>
                         </figure>
                     </div>
 
-                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-4">
+                    <div class="lg:col-span-7 p-5 sm:p-8 flex flex-col justify-between space-y-4">
                         <header class="space-y-2">
                             <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
                                 <span class="px-2.5 py-0.5 rounded-full font-semibold bg-indigo-100 text-indigo-800">Blog / Media</span>
                                 <time datetime="2026-01-15" class="text-slate-500">15 იანვარი, 2026</time>
                             </div>
-                            <h3 class="text-2xl font-bold text-slate-900">2. პერსონალური ტექნოლოგიური ბლოგი - WebDev Insights</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-900">2. პერსონალური ტექნოლოგიური ბლოგი - WebDev Insights</h3>
                         </header>
 
-                        <p class="text-slate-600 text-sm leading-relaxed">
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
                             ინფორმაციული ვებ-გვერდი, სადაც გამოქვეყნებულია სტატიები ვებ-დეველოპმენტის სიახლეებზე,
                             სემანტიკური HTML-ის მნიშვნელობასა და თანამედროვე ტენდენციებზე.
                         </p>
@@ -156,27 +184,27 @@
                         <div class="space-y-2">
                             <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">ძირითადი ფუნქციონალი:</h4>
                             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> სტატიები <code>&lt;article&gt;</code> თეგებით</li>
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> ზუსტი თარიღები <code>&lt;time&gt;</code></li>
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> კომენტარების სემანტიკური ფორმა</li>
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> ადაპტიური ბადე (Grid)</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> სტატიები <code>&lt;article&gt;</code> თეგებით</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> ზუსტი თარიღები <code>&lt;time&gt;</code></li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> კომენტარების სემანტიკური ფორმა</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> ადაპტიური ბადე (Grid)</li>
                             </ul>
                         </div>
 
                         <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div class="space-y-1">
+                            <div class="space-y-1 w-full sm:w-auto">
                                 <div class="flex items-center justify-between text-xs text-slate-600">
                                     <span class="font-medium">სტატუსი: დასრულებული</span>
                                     <span class="font-bold text-emerald-600">100%</span>
                                 </div>
-                                <div class="w-48 bg-slate-200 rounded-full h-2 overflow-hidden">
+                                <div class="w-full sm:w-48 bg-slate-200 rounded-full h-2 overflow-hidden">
                                     <progress value="100" max="100" class="sr-only">100%</progress>
                                     <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%;"></div>
                                 </div>
                             </div>
 
                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
-                               class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900 text-white hover:bg-blue-600 transition-colors shadow-sm">
+                               class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold bg-slate-900 text-white hover:bg-blue-600 transition-colors shadow-sm text-center">
                                 <span>GitHub რეპოზიტორი</span> &rarr;
                             </a>
                         </div>
@@ -186,28 +214,28 @@
 
             <!-- პროექტი 3 -->
             <article id="project-3" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
                     <div class="lg:col-span-5">
                         <figure class="h-full">
                             <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=700&auto=format&fit=crop&q=80" 
                                  alt="ამოცანების სია და დამგეგმავი" 
-                                 class="w-full h-64 lg:h-full object-cover">
-                            <figcaption class="p-3 bg-slate-100 text-slate-600 text-xs text-center border-t border-slate-200">
+                                 class="w-full h-52 sm:h-64 lg:h-full object-cover">
+                            <figcaption class="p-2.5 sm:p-3 bg-slate-100 text-slate-600 text-xs text-center border-t border-slate-200">
                                 TaskFlow — ყოველდღიური ამოცანებისა და მიზნების ორგანიზატორი
                             </figcaption>
                         </figure>
                     </div>
 
-                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-4">
+                    <div class="lg:col-span-7 p-5 sm:p-8 flex flex-col justify-between space-y-4">
                         <header class="space-y-2">
                             <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
                                 <span class="px-2.5 py-0.5 rounded-full font-semibold bg-amber-100 text-amber-800">Productivity App</span>
                                 <time datetime="2026-02-10" class="text-slate-500">10 თებერვალი, 2026</time>
                             </div>
-                            <h3 class="text-2xl font-bold text-slate-900">3. ამოცანების მართვის აპლიკაცია - TaskFlow</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-900">3. ამოცანების მართვის აპლიკაცია - TaskFlow</h3>
                         </header>
 
-                        <p class="text-slate-600 text-sm leading-relaxed">
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
                             პროდუქტიულობის ინსტრუმენტი, რომელიც ეხმარება მომხმარებლებს ამოცანების შექმნაში, 
                             პრიორიტეტების მინიჭებაში, ვადების კონტროლსა და პროგრესის აღრიცხვაში.
                         </p>
@@ -215,27 +243,27 @@
                         <div class="space-y-2">
                             <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">ძირითადი ფუნქციონალი:</h4>
                             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> მრავალკომპონენტიანი ფორმა</li>
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> სტატუსების დაჯგუფება</li>
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> პრიორიტეტების ფილტრი</li>
-                                <li class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> მონაცემთა ცხრილი</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> მრავალკომპონენტიანი ფორმა</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> სტატუსების დაჯგუფება</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> პრიორიტეტების ფილტრი</li>
+                                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> მონაცემთა ცხრილი</li>
                             </ul>
                         </div>
 
                         <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div class="space-y-1">
+                            <div class="space-y-1 w-full sm:w-auto">
                                 <div class="flex items-center justify-between text-xs text-slate-600">
                                     <span class="font-medium">სტატუსი: დამუშავების პროცესში</span>
                                     <span class="font-bold text-amber-600">80%</span>
                                 </div>
-                                <div class="w-48 bg-slate-200 rounded-full h-2 overflow-hidden">
+                                <div class="w-full sm:w-48 bg-slate-200 rounded-full h-2 overflow-hidden">
                                     <progress value="80" max="100" class="sr-only">80%</progress>
                                     <div class="bg-amber-500 h-2 rounded-full" style="width: 80%;"></div>
                                 </div>
                             </div>
 
                             <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
-                               class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-slate-900 text-white hover:bg-blue-600 transition-colors shadow-sm">
+                               class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold bg-slate-900 text-white hover:bg-blue-600 transition-colors shadow-sm text-center">
                                 <span>GitHub რეპოზიტორი</span> &rarr;
                             </a>
                         </div>
@@ -246,54 +274,62 @@
         </section>
 
         <!-- პროექტების შემაჯამებელი ცხრილი -->
-        <section id="projects-table" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
-            <div class="border-b border-slate-200 pb-4">
-                <h2 class="text-2xl font-bold text-slate-900">პროექტების შემაჯამებელი მონაცემები</h2>
-                <p class="text-sm text-slate-500">ნამუშევრების მიმოხილვა და გამოყენებული ტექნოლოგიები</p>
+        <section id="projects-table" class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-8 shadow-sm space-y-4 sm:space-y-6">
+            <div class="border-b border-slate-200 pb-3 sm:pb-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">პროექტების შემაჯამებელი მონაცემები</h2>
+                <p class="text-xs sm:text-sm text-slate-500">ნამუშევრების მიმოხილვა და გამოყენებული ტექნოლოგიები</p>
             </div>
 
-            <div class="overflow-x-auto rounded-xl border border-slate-200">
-                <table class="w-full text-left border-collapse text-sm">
+            <!-- მობილურზე ჰორიზონტალური გადახვევის მინიშნება -->
+            <div class="flex items-center gap-1.5 text-xs text-blue-600 bg-blue-50 px-3 py-2 rounded-lg border border-blue-100 md:hidden">
+                <svg class="w-4 h-4 flex-shrink-0 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+                <span>მობილურზე გადაწიეთ ცხრილი ჰორიზონტალურად სრული მონაცემების სანახავად</span>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-200 -mx-1 sm:mx-0">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm min-w-[580px]">
                     <caption class="sr-only">ნამუშევრების მიმოხილვა და გამოყენებული ტექნოლოგიები</caption>
                     <thead class="bg-slate-100 text-slate-700 text-xs uppercase tracking-wider font-semibold">
                         <tr>
-                            <th scope="col" class="py-3.5 px-4 sm:px-6">პროექტის სახელი</th>
-                            <th scope="col" class="py-3.5 px-4 sm:px-6">კატეგორია</th>
-                            <th scope="col" class="py-3.5 px-4 sm:px-6">ტექნოლოგიები</th>
-                            <th scope="col" class="py-3.5 px-4 sm:px-6">თარიღი</th>
-                            <th scope="col" class="py-3.5 px-4 sm:px-6">სტატუსი</th>
+                            <th scope="col" class="py-3 px-3.5 sm:px-6">პროექტის სახელი</th>
+                            <th scope="col" class="py-3 px-3.5 sm:px-6">კატეგორია</th>
+                            <th scope="col" class="py-3 px-3.5 sm:px-6">ტექნოლოგიები</th>
+                            <th scope="col" class="py-3 px-3.5 sm:px-6">თარიღი</th>
+                            <th scope="col" class="py-3 px-3.5 sm:px-6">სტატუსი</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-200 bg-white">
                         <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="py-4 px-4 sm:px-6 font-bold text-slate-900">ShopTBC</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600">ელ-კომერცია</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600">HTML5, Forms, Tailwind CSS</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-500 whitespace-nowrap"><time datetime="2025-11">ნოემბერი, 2025</time></td>
-                            <td class="py-4 px-4 sm:px-6">
-                                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                            <td class="py-3.5 px-3.5 sm:px-6 font-bold text-slate-900">ShopTBC</td>
+                            <td class="py-3.5 px-3.5 sm:px-6 text-slate-600">ელ-კომერცია</td>
+                            <td class="py-3.5 px-3.5 sm:px-6 text-slate-600">HTML5, Forms, Tailwind CSS</td>
+                            <td class="py-3.5 px-3.5 sm:px-6 text-slate-500 whitespace-nowrap"><time datetime="2025-11">ნოემბერი, 2025</time></td>
+                            <td class="py-3.5 px-3.5 sm:px-6">
+                                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 whitespace-nowrap">
                                     დასრულებული
                                 </span>
                             </td>
                         </tr>
                         <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="py-4 px-4 sm:px-6 font-bold text-slate-900">WebDev Insights</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600">ბლოგ-პლატფორმა</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600">HTML5, Articles, Tailwind CSS</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-500 whitespace-nowrap"><time datetime="2026-01">იანვარი, 2026</time></td>
-                            <td class="py-4 px-4 sm:px-6">
-                                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                            <td class="py-3.5 px-3.5 sm:px-6 font-bold text-slate-900">WebDev Insights</td>
+                            <td class="py-3.5 px-3.5 sm:px-6 text-slate-600">ბლოგ-პლატფორმა</td>
+                            <td class="py-3.5 px-3.5 sm:px-6 text-slate-600">HTML5, Articles, Tailwind CSS</td>
+                            <td class="py-3.5 px-3.5 sm:px-6 text-slate-500 whitespace-nowrap"><time datetime="2026-01">იანვარი, 2026</time></td>
+                            <td class="py-3.5 px-3.5 sm:px-6">
+                                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 whitespace-nowrap">
                                     დასრულებული
                                 </span>
                             </td>
                         </tr>
                         <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="py-4 px-4 sm:px-6 font-bold text-slate-900">TaskFlow</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600">პროდუქტიულობა</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600">HTML5, Forms, Tables</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-500 whitespace-nowrap"><time datetime="2026-02">თებერვალი, 2026</time></td>
-                            <td class="py-4 px-4 sm:px-6">
-                                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+                            <td class="py-3.5 px-3.5 sm:px-6 font-bold text-slate-900">TaskFlow</td>
+                            <td class="py-3.5 px-3.5 sm:px-6 text-slate-600">პროდუქტიულობა</td>
+                            <td class="py-3.5 px-3.5 sm:px-6 text-slate-600">HTML5, Forms, Tables</td>
+                            <td class="py-3.5 px-3.5 sm:px-6 text-slate-500 whitespace-nowrap"><time datetime="2026-02">თებერვალი, 2026</time></td>
+                            <td class="py-3.5 px-3.5 sm:px-6">
+                                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 whitespace-nowrap">
                                     მიმდინარე
                                 </span>
                             </td>
@@ -304,23 +340,23 @@
         </section>
 
         <!-- სამომავლო გეგმები (Aside) -->
-        <aside class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl p-6 sm:p-8 shadow-md">
-            <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+        <aside class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl p-5 sm:p-8 shadow-md">
+            <h3 class="text-lg sm:text-xl font-bold mb-2.5 sm:mb-3 flex items-center gap-2">
                 <span>💡</span> სამომავლო პროექტების იდეები
             </h3>
-            <p class="text-sm text-slate-300 mb-4">მალე იგეგმება შემდეგ საინტერესო პროექტებზე მუშაობა:</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+            <p class="text-xs sm:text-sm text-slate-300 mb-3 sm:mb-4">მალე იგეგმება შემდეგ საინტერესო პროექტებზე მუშაობა:</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
+                <div class="bg-slate-800/80 p-3.5 sm:p-4 rounded-xl border border-slate-700">
                     <p class="font-semibold text-blue-400">ამინდის აპლიკაცია</p>
-                    <p class="text-xs text-slate-400 mt-1">ინტერაქციული ვებ-გვერდი ქალაქების მიხედვით პროგნოზის ჩვენებით.</p>
+                    <p class="text-xs text-slate-400 mt-1 leading-relaxed">ინტერაქციული ვებ-გვერდი ქალაქების მიხედვით პროგნოზის ჩვენებით.</p>
                 </div>
-                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+                <div class="bg-slate-800/80 p-3.5 sm:p-4 rounded-xl border border-slate-700">
                     <p class="font-semibold text-blue-400">კულინარიული პორტალი</p>
-                    <p class="text-xs text-slate-400 mt-1">რეცეპტების კატალოგი ინგრედიენტების კალკულატორითა და ვიდეოებით.</p>
+                    <p class="text-xs text-slate-400 mt-1 leading-relaxed">რეცეპტების კატალოგი ინგრედიენტების კალკულატორითა და ვიდეოებით.</p>
                 </div>
-                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+                <div class="bg-slate-800/80 p-3.5 sm:p-4 rounded-xl border border-slate-700 sm:col-span-2 lg:col-span-1">
                     <p class="font-semibold text-blue-400">ონლაინ ვიქტორინა (Quiz)</p>
-                    <p class="text-xs text-slate-400 mt-1">ტესტები და კითხვარები ვებ-დეველოპმენტისა და მათემატიკის თემებზე.</p>
+                    <p class="text-xs text-slate-400 mt-1 leading-relaxed">ტესტები და კითხვარები ვებ-დეველოპმენტისა და მათემატიკის თემებზე.</p>
                 </div>
             </div>
         </aside>
@@ -329,16 +365,16 @@
 
     <!-- საიტის ფუტერი -->
     <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-auto">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-5">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-5">
                 <div class="text-center sm:text-left">
-                    <p class="text-lg font-bold text-white">მიხეილ საგრადიანი</p>
+                    <p class="text-base sm:text-lg font-bold text-white">მიხეილ საგრადიანი</p>
                     <p class="text-xs text-slate-400">Front-End დეველოპერის პერსონალური პორტფოლიო</p>
                 </div>
                 
                 <!-- ფუტერის ნავიგაცია -->
                 <nav aria-label="ფუტერის ნავიგაცია">
-                    <ul class="flex flex-wrap justify-center gap-4 text-sm font-medium">
+                    <ul class="flex flex-wrap justify-center gap-3 sm:gap-5 text-xs sm:text-sm font-medium">
                         <li><a href="index.html" class="hover:text-white transition-colors">მთავარი</a></li>
                         <li><a href="about.html" class="hover:text-white transition-colors">ჩემ შესახებ</a></li>
                         <li><a href="projects.html" class="hover:text-white transition-colors">პროექტები</a></li>
@@ -347,8 +383,8 @@
                 </nav>
             </div>
 
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-                <address class="not-italic text-center sm:text-left">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 text-center sm:text-left">
+                <address class="not-italic">
                     ავტორი: მიხეილ საგრადიანი (სკოლის მოსწავლე) &bull; 
                     ელ-ფოსტა: <a href="mailto:mikheil.sagradian@example.com" class="text-blue-400 hover:underline">mikheil.sagradian@example.com</a> &bull; 
                     თბილისი, საქართველო
@@ -358,6 +394,26 @@
             </div>
         </div>
     </footer>
+
+    <!-- მობილური ბურგერ მენიუს სკრიპტი -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+                if (menuIconOpen && menuIconClose) {
+                    menuIconOpen.classList.toggle('hidden');
+                    menuIconClose.classList.toggle('hidden');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
