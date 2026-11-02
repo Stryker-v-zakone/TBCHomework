@@ -8,37 +8,80 @@
     <title>კონტაქტი | მიხეილ საგრადიანი</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <!-- Dark Mode FOUC Prevention Script -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans selection:bg-blue-500 selection:text-white">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased min-h-screen flex flex-col font-sans selection:bg-blue-500 selection:text-white transition-colors duration-200">
 
     <!-- საიტის მთავარი ჰედერი და ნავიგაცია -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 shadow-sm transition-all">
+    <header class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 shadow-sm transition-all">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
                 
                 <!-- ლოგო / ბრენდი -->
                 <div class="flex-shrink-0">
-                    <a href="index.html" class="group flex items-center gap-2.5 text-slate-900 hover:text-blue-600 transition-colors">
+                    <a href="index.html" class="group flex items-center gap-2.5 text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         <span class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm shadow-sm group-hover:scale-105 transition-transform">MS</span>
                         <div>
                             <span class="block text-base sm:text-lg font-bold tracking-tight leading-tight">მიხეილ საგრადიანი</span>
-                            <span class="block text-[11px] text-slate-500 font-medium">სკოლის მოსწავლე &bull; Front-End</span>
+                            <span class="block text-[11px] text-slate-500 dark:text-slate-400 font-medium">სკოლის მოსწავლე &bull; Front-End</span>
                         </div>
                     </a>
                 </div>
 
-                <!-- დესკტოპ ნავიგაცია (მალულია მობილურზე < md) -->
-                <nav aria-label="მთავარი ნავიგაცია" class="hidden md:flex items-center gap-1.5 lg:gap-2">
-                    <a href="index.html" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-all">მთავარი</a>
-                    <a href="about.html" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-all">ჩემ შესახებ</a>
-                    <a href="projects.html" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 transition-all">პროექტები</a>
-                    <a href="contact.html" class="px-3.5 py-2 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-sm transition-all" aria-current="page">კონტაქტი</a>
-                </nav>
+                <!-- დესკტოპ ნავიგაცია & თემის გადამრთველი (მალულია მობილურზე < md) -->
+                <div class="hidden md:flex items-center gap-2 lg:gap-3">
+                    <nav aria-label="მთავარი ნავიგაცია" class="flex items-center gap-1.5 lg:gap-2">
+                        <a href="index.html" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">მთავარი</a>
+                        <a href="about.html" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">ჩემ შესახებ</a>
+                        <a href="projects.html" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">პროექტები</a>
+                        <a href="contact.html" class="px-3.5 py-2 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-sm transition-all" aria-current="page">კონტაქტი</a>
+                    </nav>
 
-                <!-- ბურგერ მენიუს ღილაკი (ჩანს მხოლოდ მობილურზე < md) -->
-                <div class="flex md:hidden">
+                    <div class="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
+
+                    <!-- დესკტოპ თემის ღილაკი -->
+                    <button type="button" class="theme-toggle-btn p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer" aria-label="მუქი/ნათელი თემის გადართვა" title="თემის გადართვა">
+                        <!-- მზე (მუქ რეჟიმში) -->
+                        <svg class="w-5 h-5 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                        </svg>
+                        <!-- მთვარე (ნათელ რეჟიმში) -->
+                        <svg class="w-5 h-5 block dark:hidden text-slate-700" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- მობილურის ელემენტები (თემის ღილაკი + ბურგერ მენიუ < md) -->
+                <div class="flex items-center gap-2 md:hidden">
+                    
+                    <!-- მობილურის თემის გადამრთველი ღილაკი პირდაპირ ჰედერში -->
+                    <button type="button" class="theme-toggle-btn p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer" aria-label="მუქი/ნათელი თემის გადართვა" title="თემის გადართვა">
+                        <!-- მზე (მუქ რეჟიმში) -->
+                        <svg class="w-5 h-5 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                        </svg>
+                        <!-- მთვარე (ნათელ რეჟიმში) -->
+                        <svg class="w-5 h-5 block dark:hidden text-slate-700" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                        </svg>
+                    </button>
+
+                    <!-- ბურგერ მენიუს ღილაკი -->
                     <button type="button" id="mobile-menu-btn" aria-controls="mobile-menu" aria-expanded="false" 
-                            class="p-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors border border-slate-200" 
+                            class="p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer" 
                             aria-label="მობილური მენიუს გახსნა">
                         <!-- ბურგერ აიქონი (3 ხაზი) -->
                         <svg id="menu-icon-open" class="w-6 h-6 block" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -53,19 +96,28 @@
             </div>
 
             <!-- მობილური ჩამოსაშლელი მენიუ -->
-            <nav id="mobile-menu" aria-label="მობილური ნავიგაცია" class="hidden md:hidden border-t border-slate-200 py-3 space-y-1">
-                <a href="index.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors">
+            <nav id="mobile-menu" aria-label="მობილური ნავიგაცია" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 py-3 space-y-1">
+                <a href="index.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                     მთავარი
                 </a>
-                <a href="about.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors">
+                <a href="about.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                     ჩემ შესახებ
                 </a>
-                <a href="projects.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors">
+                <a href="projects.html" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                     პროექტები
                 </a>
                 <a href="contact.html" class="block px-4 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-sm" aria-current="page">
                     კონტაქტი
                 </a>
+
+                <!-- თემის სწრაფი გადართვა მობილური მენიუს შიგნითაც -->
+                <div class="pt-2 mt-1 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 py-2">
+                    <span class="text-xs font-medium text-slate-500 dark:text-slate-400">ვებ-გვერდის თემა:</span>
+                    <button type="button" class="theme-toggle-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer">
+                        <span class="dark:hidden">🌙 მუქი რეჟიმი</span>
+                        <span class="hidden dark:inline">☀️ ნათელი რეჟიმი</span>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>
@@ -75,127 +127,127 @@
 
         <!-- შესავალი და საკონტაქტო ბარათები -->
         <section id="contact-details" class="space-y-4 sm:space-y-6">
-            <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-8 lg:p-10 shadow-sm space-y-2">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-8 lg:p-10 shadow-sm space-y-2 transition-colors">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
                     <span>📬</span> კომუნიკაცია
                 </div>
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">დამიკავშირდით</h1>
-                <p class="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug">დამიკავშირდით</h1>
+                <p class="text-xs sm:text-sm lg:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                     გაქვთ საინტერესო იდეა, სასკოლო პროექტი ან შეკითხვა? სიამოვნებით მოგისმენთ და გიპასუხებთ!
                 </p>
             </div>
 
             <!-- სემანტიკური საკონტაქტო ბარათები (Address) -->
             <address class="not-italic grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
-                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 sm:mb-3">✉️</div>
-                    <strong class="block text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">ელ-ფოსტა</strong>
-                    <a href="mailto:mikheil.sagradian@example.com" class="text-xs sm:text-sm font-bold text-slate-900 hover:text-blue-600 break-all leading-normal mt-0.5 block">
+                <div class="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-300 dark:hover:border-blue-700 transition-colors">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 sm:mb-3">✉️</div>
+                    <strong class="block text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">ელ-ფოსტა</strong>
+                    <a href="mailto:mikheil.sagradian@example.com" class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 break-all leading-normal mt-0.5 block">
                         mikheil.sagradian@example.com
                     </a>
                 </div>
 
-                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 sm:mb-3">📞</div>
-                    <strong class="block text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">ტელეფონი</strong>
-                    <a href="tel:+995555123456" class="text-xs sm:text-sm font-bold text-slate-900 hover:text-blue-600 leading-normal mt-0.5 block">
+                <div class="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-300 dark:hover:border-blue-700 transition-colors">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 sm:mb-3">📞</div>
+                    <strong class="block text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">ტელეფონი</strong>
+                    <a href="tel:+995555123456" class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 leading-normal mt-0.5 block">
                         +995 555 12 34 56
                     </a>
                 </div>
 
-                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 sm:mb-3">📍</div>
-                    <strong class="block text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">ლოკაცია</strong>
-                    <p class="text-xs sm:text-sm font-bold text-slate-900 leading-normal mt-0.5">
+                <div class="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-300 dark:hover:border-blue-700 transition-colors">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 sm:mb-3">📍</div>
+                    <strong class="block text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">ლოკაცია</strong>
+                    <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-normal mt-0.5">
                         თბილისი, საქართველო
                     </p>
                 </div>
 
-                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 sm:mb-3">🔗</div>
-                    <strong class="block text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">სოციალური ქსელები</strong>
+                <div class="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-300 dark:hover:border-blue-700 transition-colors">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 sm:mb-3">🔗</div>
+                    <strong class="block text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">სოციალური ქსელები</strong>
                     <div class="text-xs space-x-2 mt-1">
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 hover:underline">GitHub</a> &bull;
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 hover:underline">LinkedIn</a>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 dark:text-blue-400 hover:underline">GitHub</a> &bull;
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-600 dark:text-blue-400 hover:underline">LinkedIn</a>
                     </div>
                 </div>
             </address>
         </section>
 
         <!-- სემანტიკური საკონტაქტო ფორმის სექცია -->
-        <section id="contact-form-section" class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-8 lg:p-10 shadow-sm space-y-4 sm:space-y-6">
-            <div class="border-b border-slate-200 pb-3 sm:pb-4">
-                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">გამომიგზავნეთ შეტყობინება</h2>
-                <p class="text-xs sm:text-sm text-slate-500">გთხოვთ შეავსოთ ქვემოთ მოცემული ფორმა. ვარსკვლავით (*) აღნიშნული ველები სავალდებულოა.</p>
+        <section id="contact-form-section" class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-8 lg:p-10 shadow-sm space-y-4 sm:space-y-6 transition-colors">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-3 sm:pb-4">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">გამომიგზავნეთ შეტყობინება</h2>
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">გთხოვთ შეავსოთ ქვემოთ მოცემული ფორმა. ვარსკვლავით (*) აღნიშნული ველები სავალდებულოა.</p>
             </div>
 
             <form action="#" method="post" enctype="multipart/form-data" class="space-y-6 sm:space-y-8">
 
                 <!-- ჯგუფი 1: პერსონალური მონაცემები -->
-                <fieldset class="border border-slate-200 rounded-2xl p-4 sm:p-6 bg-slate-50/50 space-y-3.5 sm:space-y-4">
-                    <legend class="text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                <fieldset class="border border-slate-200 dark:border-slate-700/60 rounded-2xl p-4 sm:p-6 bg-slate-50/50 dark:bg-slate-800/30 space-y-3.5 sm:space-y-4">
+                    <legend class="text-xs sm:text-sm font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/80 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-900">
                         1. პერსონალური ინფორმაცია
                     </legend>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
                         <div class="space-y-1.5">
-                            <label for="full-name" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                            <label for="full-name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                                 სახელი და გვარი <span class="text-red-500">*</span>
                             </label>
                             <input type="text" id="full-name" name="full_name" placeholder="მაგ.: დავით მაისურაძე" required 
-                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-xs sm:text-sm outline-none transition">
+                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs sm:text-sm outline-none transition">
                         </div>
 
                         <div class="space-y-1.5">
-                            <label for="email-address" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                            <label for="email-address" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                                 ელ-ფოსტის მისამართი <span class="text-red-500">*</span>
                             </label>
                             <input type="email" id="email-address" name="email_address" placeholder="example@mail.com" required 
-                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-xs sm:text-sm outline-none transition">
+                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs sm:text-sm outline-none transition">
                         </div>
 
                         <div class="space-y-1.5">
-                            <label for="phone-number" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                            <label for="phone-number" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                                 ტელეფონის ნომერი
                             </label>
                             <input type="tel" id="phone-number" name="phone_number" placeholder="+995 5XX XX XX XX" 
-                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-xs sm:text-sm outline-none transition">
+                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs sm:text-sm outline-none transition">
                         </div>
 
                         <div class="space-y-1.5">
-                            <label for="company-name" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                            <label for="company-name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                                 სკოლა / ორგანიზაცია (არასავალდებულო)
                             </label>
                             <input type="text" id="company-name" name="company_name" placeholder="სასწავლებელი ან ორგანიზაცია" 
-                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-xs sm:text-sm outline-none transition">
+                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs sm:text-sm outline-none transition">
                         </div>
                     </div>
                 </fieldset>
 
                 <!-- ჯგუფი 2: თანამშრომლობის დეტალები -->
-                <fieldset class="border border-slate-200 rounded-2xl p-4 sm:p-6 bg-slate-50/50 space-y-4 sm:space-y-6">
-                    <legend class="text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                <fieldset class="border border-slate-200 dark:border-slate-700/60 rounded-2xl p-4 sm:p-6 bg-slate-50/50 dark:bg-slate-800/30 space-y-4 sm:space-y-6">
+                    <legend class="text-xs sm:text-sm font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/80 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-900">
                         2. შეტყობინების დეტალები და ინტერესის სფერო
                     </legend>
 
                     <div class="space-y-1.5 pt-1">
-                        <label for="contact-reason" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                        <label for="contact-reason" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                             დაკავშირების მიზეზი <span class="text-red-500">*</span>
                         </label>
                         <select id="contact-reason" name="contact_reason" required 
-                                class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-xs sm:text-sm outline-none transition cursor-pointer">
+                                class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs sm:text-sm outline-none transition cursor-pointer">
                             <option value="" disabled selected>-- აირჩიეთ მიზეზი --</option>
-                            <optgroup label="თანამშრომლობა / მენტორობა">
+                            <optgroup label="თანამშრომლობა / მენტორობა" class="bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
                                 <option value="mentorship">მენტორობა / კონსულტაცია</option>
                                 <option value="internship">სტაჟირება / სასწავლო პრაქტიკა</option>
                                 <option value="student-project">ერთობლივი სასკოლო / ჰაკათონის პროექტი</option>
                             </optgroup>
-                            <optgroup label="პროექტები და შეკვეთები">
+                            <optgroup label="პროექტები და შეკვეთები" class="bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
                                 <option value="project-landing">სავიზიტო / სადესანტო გვერდის აწყობა</option>
                                 <option value="project-html">სემანტიკური HTML &amp; Tailwind მარკირება</option>
                                 <option value="project-help">ტექნიკური დახმარება</option>
                             </optgroup>
-                            <optgroup label="სხვა">
+                            <optgroup label="სხვა" class="bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
                                 <option value="feedback">უკუკავშირი პორტფოლიოზე</option>
                                 <option value="other">სხვა საკითხი</option>
                             </optgroup>
@@ -204,21 +256,21 @@
 
                     <!-- ბიუჯეტი (Radio) -->
                     <div class="space-y-2">
-                        <strong class="block text-xs font-bold uppercase tracking-wider text-slate-700">პროექტის სასურველი ბიუჯეტი:</strong>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs sm:text-sm text-slate-700">
-                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                        <strong class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">პროექტის სასურველი ბიუჯეტი:</strong>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition">
                                 <input type="radio" id="budget-low" name="budget" value="under-500" class="text-blue-600 focus:ring-blue-500">
                                 <span>500 ₾-მდე</span>
                             </label>
-                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition">
                                 <input type="radio" id="budget-mid" name="budget" value="500-1500" class="text-blue-600 focus:ring-blue-500">
                                 <span>500 ₾ - 1,500 ₾</span>
                             </label>
-                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition">
                                 <input type="radio" id="budget-high" name="budget" value="1500-plus" class="text-blue-600 focus:ring-blue-500">
                                 <span>1,500 ₾-ზე მეტი</span>
                             </label>
-                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition">
                                 <input type="radio" id="budget-na" name="budget" value="not-applicable" checked class="text-blue-600 focus:ring-blue-500">
                                 <span>არ ეხება ფასიან პროექტს</span>
                             </label>
@@ -227,21 +279,21 @@
 
                     <!-- სერვისები (Checkbox) -->
                     <div class="space-y-2">
-                        <strong class="block text-xs font-bold uppercase tracking-wider text-slate-700">დაინტერესებული სერვისები (მონიშნეთ შესაბამისი):</strong>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-700">
-                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                        <strong class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">დაინტერესებული სერვისები (მონიშნეთ შესაბამისი):</strong>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition">
                                 <input type="checkbox" id="service-semantic" name="services" value="semantic-html" class="rounded text-blue-600 focus:ring-blue-500">
                                 <span>სემანტიკური HTML მარკირება</span>
                             </label>
-                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition">
                                 <input type="checkbox" id="service-tailwind" name="services" value="tailwind" class="rounded text-blue-600 focus:ring-blue-500">
                                 <span>Tailwind CSS სტილიზაცია</span>
                             </label>
-                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition">
                                 <input type="checkbox" id="service-a11y" name="services" value="accessibility" class="rounded text-blue-600 focus:ring-blue-500">
                                 <span>ხელმისაწვდომობის (A11y) შემოწმება</span>
                             </label>
-                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+                            <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition">
                                 <input type="checkbox" id="service-consulting" name="services" value="consulting" class="rounded text-blue-600 focus:ring-blue-500">
                                 <span>ტექნიკური კონსულტაცია / მენტორობა</span>
                             </label>
@@ -251,33 +303,33 @@
                     <!-- თარიღი და ფაილის ატვირთვა -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
                         <div class="space-y-1.5">
-                            <label for="preferred-date" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                            <label for="preferred-date" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                                 სასურველი ონლაინ შეხვედრის თარიღი:
                             </label>
                             <input type="date" id="preferred-date" name="preferred_date" 
-                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-xs sm:text-sm outline-none transition">
+                                   class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs sm:text-sm outline-none transition">
                         </div>
 
                         <div class="space-y-1.5">
-                            <label for="attachment" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                            <label for="attachment" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                                 ტექნიკური დავალების ატვირთვა:
                             </label>
                             <input type="file" id="attachment" name="attachment" 
-                                   class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer border border-slate-300 rounded-xl p-1 bg-white">
+                                   class="w-full text-xs text-slate-500 dark:text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 dark:file:bg-blue-950 file:text-blue-700 dark:file:text-blue-300 hover:file:bg-blue-100 cursor-pointer border border-slate-300 dark:border-slate-700 rounded-xl p-1 bg-white dark:bg-slate-800">
                         </div>
                     </div>
 
                     <!-- შეტყობინება -->
                     <div class="space-y-1.5">
-                        <label for="message-body" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                        <label for="message-body" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                             თქვენი შეტყობინება <span class="text-red-500">*</span>
                         </label>
                         <textarea id="message-body" name="message_body" rows="5" placeholder="გთხოვთ დეტალურად აღწეროთ თქვენი შეკითხვა ან შემოთავაზება..." required 
-                                  class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-xs sm:text-sm outline-none transition leading-relaxed"></textarea>
+                                  class="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs sm:text-sm outline-none transition leading-relaxed"></textarea>
                     </div>
 
                     <!-- თანხმობა -->
-                    <label class="flex items-start sm:items-center gap-2.5 text-xs text-slate-600 cursor-pointer pt-1 leading-normal">
+                    <label class="flex items-start sm:items-center gap-2.5 text-xs text-slate-600 dark:text-slate-400 cursor-pointer pt-1 leading-normal">
                         <input type="checkbox" id="privacy-agreement" name="privacy_agreement" required class="rounded text-blue-600 focus:ring-blue-500 mt-0.5 sm:mt-0 flex-shrink-0">
                         <span>ვეთანხმები პერსონალური მონაცემების დამუშავებას საკონტაქტო მიზნებისთვის <span class="text-red-500">*</span></span>
                     </label>
@@ -286,11 +338,11 @@
                 <!-- ღილაკები -->
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
                     <button type="submit" 
-                            class="px-6 py-3 rounded-xl font-semibold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg transition-all cursor-pointer text-center">
+                            class="px-6 py-3 rounded-xl font-semibold text-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md hover:shadow-lg transition-all cursor-pointer text-center">
                         შეტყობინების გაგზავნა &rarr;
                     </button>
                     <button type="reset" 
-                            class="px-6 py-3 rounded-xl font-medium text-sm text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-all cursor-pointer text-center">
+                            class="px-6 py-3 rounded-xl font-medium text-sm text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all cursor-pointer text-center">
                         ფორმის გასუფთავება
                     </button>
                 </div>
@@ -300,50 +352,50 @@
         <!-- სამუშაო საათები და FAQ (Aside) -->
         <aside class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
             
-            <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-8 shadow-sm space-y-3.5 sm:space-y-4">
-                <h3 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
+            <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-8 shadow-sm space-y-3.5 sm:space-y-4 transition-colors">
+                <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <span>🕒</span> საკომუნიკაციო საათები (სკოლის შემდეგ)
                 </h3>
                 
-                <div class="overflow-x-auto rounded-xl border border-slate-200 -mx-1 sm:mx-0">
+                <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 -mx-1 sm:mx-0">
                     <table class="w-full text-left border-collapse text-xs sm:text-sm min-w-[320px]">
                         <caption class="sr-only">კომუნიკაციის გრაფიკი</caption>
-                        <thead class="bg-slate-100 text-slate-700 text-xs uppercase font-semibold">
+                        <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs uppercase font-semibold">
                             <tr>
                                 <th scope="col" class="py-2.5 sm:py-3 px-3 sm:px-4">დღეები</th>
                                 <th scope="col" class="py-2.5 sm:py-3 px-3 sm:px-4">საათები</th>
                                 <th scope="col" class="py-2.5 sm:py-3 px-3 sm:px-4">სტატუსი</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-200 bg-white text-xs sm:text-sm">
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="py-3 px-3 sm:px-4 font-semibold text-slate-900">ორშაბათი - პარასკევი</td>
-                                <td class="py-3 px-3 sm:px-4 text-blue-600 font-medium whitespace-nowrap"><time>16:00</time> - <time>20:30</time></td>
-                                <td class="py-3 px-3 sm:px-4 text-slate-600">სკოლის გაკვეთილების შემდეგ</td>
+                        <tbody class="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900 text-xs sm:text-sm">
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                <td class="py-3 px-3 sm:px-4 font-semibold text-slate-900 dark:text-white">ორშაბათი - პარასკევი</td>
+                                <td class="py-3 px-3 sm:px-4 text-blue-600 dark:text-blue-400 font-medium whitespace-nowrap"><time>16:00</time> - <time>20:30</time></td>
+                                <td class="py-3 px-3 sm:px-4 text-slate-600 dark:text-slate-300">სკოლის გაკვეთილების შემდეგ</td>
                             </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="py-3 px-3 sm:px-4 font-semibold text-slate-900">შაბათი - კვირა</td>
-                                <td class="py-3 px-3 sm:px-4 text-blue-600 font-medium whitespace-nowrap"><time>12:00</time> - <time>19:00</time></td>
-                                <td class="py-3 px-3 sm:px-4 text-slate-600">აქტიური (პროექტებზე მუშაობა)</td>
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                <td class="py-3 px-3 sm:px-4 font-semibold text-slate-900 dark:text-white">შაბათი - კვირა</td>
+                                <td class="py-3 px-3 sm:px-4 text-blue-600 dark:text-blue-400 font-medium whitespace-nowrap"><time>12:00</time> - <time>19:00</time></td>
+                                <td class="py-3 px-3 sm:px-4 text-slate-600 dark:text-slate-300">აქტიური (პროექტებზე მუშაობა)</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="lg:col-span-5 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl p-5 sm:p-8 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="lg:col-span-5 bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-950 dark:to-indigo-950 text-white rounded-2xl p-5 sm:p-8 shadow-sm flex flex-col justify-between space-y-4 border border-blue-500/20">
                 <div class="space-y-2 sm:space-y-3">
                     <h3 class="text-base sm:text-lg font-bold flex items-center gap-2">
                         <span>💬</span> პასუხის დრო
                     </h3>
-                    <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
+                    <p class="text-xs sm:text-sm text-blue-100 dark:text-blue-200 leading-relaxed">
                         ჩვეულებრივ, შემოსულ ყველა შეტყობინებას ვპასუხობ <strong>24 საათის</strong> განმავლობაში, სკოლის გაკვეთილების დასრულებისთანავე.
                     </p>
                 </div>
 
-                <details class="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/20 text-xs">
+                <details class="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/20 dark:border-white/10 text-xs">
                     <summary class="font-semibold cursor-pointer text-white">შესაძლებელია თუ არა ონლაინ ზარი?</summary>
-                    <p class="mt-2 text-blue-100 leading-relaxed">
+                    <p class="mt-2 text-blue-100 dark:text-blue-200 leading-relaxed">
                         დიახ, წინასწარი შეთანხმებით Google Meet-ის ან Zoom-ის საშუალებით თავისუფალ საათებში.
                     </p>
                 </details>
@@ -354,9 +406,9 @@
     </main>
 
     <!-- საიტის ფუტერი -->
-    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-auto">
+    <footer class="bg-slate-900 dark:bg-slate-950 text-slate-400 border-t border-slate-800 dark:border-slate-900 mt-auto transition-colors">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-5">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-5">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800 dark:border-slate-850 pb-5">
                 <div class="text-center sm:text-left">
                     <p class="text-base sm:text-lg font-bold text-white">მიხეილ საგრადიანი</p>
                     <p class="text-xs text-slate-400">Front-End დეველოპერის პერსონალური პორტფოლიო</p>
@@ -385,8 +437,9 @@
         </div>
     </footer>
 
-    <!-- მობილური ბურგერ მენიუს სკრიპტი -->
+    <!-- მობილური ბურგერ მენიუსა და თემის გადართვის სკრიპტი -->
     <script>
+        // მობილური ბურგერ მენიუ
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIconOpen = document.getElementById('menu-icon-open');
@@ -403,6 +456,16 @@
                 }
             });
         }
+
+        // მუქი / ნათელი თემის გადამრთველი ფუნქციონალი (მუშაობს დესკტოპზეც და მობილურზეც)
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', toggleTheme);
+        });
     </script>
 
 </body>
